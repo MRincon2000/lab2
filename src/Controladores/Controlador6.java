@@ -6,22 +6,18 @@
 package Controladores;
 
 import Logica.Plataforma;
-import Vista.Vista;
+import Vista.Vista6;
 
 /**
  *
  * @author usuario
  */
-public abstract class Controlador {
-    public static Plataforma modelo;
-
-    public Controlador(Plataforma modelo) {
-        this.modelo = modelo;
+public class Controlador6 extends Controlador{
+    private Vista6 vista;
+    public Controlador6(Plataforma modelo) {
+        super(modelo);
     }
-
-    public Plataforma getModelo() {
-        return modelo;
+    public Vista6 getVista() {
+        return vista;
     }
-    public abstract Vista getVista();
-    
 }

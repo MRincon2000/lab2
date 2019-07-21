@@ -61,7 +61,7 @@ public class Plataforma {
           return false;
 }
     
-    public void solicitarPrestamo(String usuario, String contraseña,String nombre,String descripcion, double precioMax, double precioMin){
+    public void solicitarPrestamo(String usuario,String nombre,String descripcion, double precioMax, double precioMin){
         Promotor solicitor=null;
         Proyecto proyecto=null;
         for(Promotor promotor:this.promotores){
