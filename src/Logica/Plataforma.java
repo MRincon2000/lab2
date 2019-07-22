@@ -85,6 +85,7 @@ public class Plataforma {
         for(Subasta subasta: this.subastas){
             if(subasta.getFecha_creación()==fecha){
             comprador.getProyectos().add(subasta.getProyecto());
+            subasta.getProyecto().setPrecioOfertado(subasta.getPrecio_actual());
             subasta.getProyecto().setAportanteGanador(comprador);
             this.subastas.remove(subasta);
             break;

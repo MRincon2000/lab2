@@ -9,6 +9,7 @@ import Logica.Plataforma;
 import Vista.Vista5;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 
 /**
  *
@@ -35,7 +36,11 @@ public class Controlador5 extends Controlador{
 
         @Override
         public void handle(ActionEvent event) {
-        modelo.solicitarPrestamo(usuario, contraseña, vista.getTfNombre().getText(),vista.getTfDescripcion().getText(),(double) vista.getTfPrecioMax().getText(),(double) vista.getTfPrecioMin().getText());
+        vista.getGuardar().setDisable(true);
+        modelo.solicitarPrestamo(usuario, vista.getTfNombre().getText(),vista.getTfDescripcion().getText(),(vista.getsPMhundreds().getValue()*100000)+(vista.getsPMmillions().getValue()*1000000)+(vista.getsPMthousands().getValue()*1000), vista.getsPrecioMin().getValue());
+        vista.getLayout().getChildren().add(new Label("Subasta Exitosa"));
+        vista.getLayout().getChildren().add(new Label("Recuerde que cada hora el precio del producto se reduce un 5% hasta su precio minimo"));
+        
         }
 
         

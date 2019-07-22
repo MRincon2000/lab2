@@ -63,5 +63,13 @@ public class Proyecto {
         this.usuario = usuario;
     }
 
+    public double getPrecioOfertado() {
+        return precioOfertado;
+    }
+
+    public void setPrecioOfertado(double precioOfertado) {
+        this.precioOfertado = precioOfertado;
+    }
+
     
 }

@@ -5,11 +5,15 @@
  */
 package Vista;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -25,15 +29,24 @@ private HBox fila1;
 private HBox fila2;
 private HBox fila3;
 private HBox fila4;
+private HBox fila5;
+private HBox fila6;
+private HBox fila7;
 private Label lbNombre;
 private Label lbDescripcion;
 private Label lbPrecioMax;
 private Label lbPrecioMin;
 private TextField tfNombre;
 private TextField tfDescripcion;
-private TextField tfPrecioMax;
-private TextField tfPrecioMin;
+private Label lbMillion;
+private Label lbHundreds;
+private Label lbThousands;
+private Spinner <Double> sPMmillions;
+private Spinner <Double> sPMhundreds;
+private Spinner <Double> sPMthousands;
+private Spinner <Double> sPrecioMin;
 private Button guardar;
+
 
     public Vista5() {
         this.layout=new VBox();
@@ -41,21 +54,36 @@ private Button guardar;
         this.fila2=new  HBox();
         this.fila3=new  HBox();
         this.fila4=new  HBox();
+        this.fila5=new  HBox();
+        this.fila6=new  HBox();
+        this.fila7=new  HBox();
         this.lbNombre = new Label("Nombre del Proyecto");
         this.lbDescripcion = new Label ("Decripción del Proyecto");
-        this.lbPrecioMax = new Label ("Precio maximo de inversión");
-        this.lbPrecioMin = new Label("Precio minimo de inversión");
+        this.lbPrecioMax = new Label ("Precio maximo de inversión:");
+        this.lbPrecioMin = new Label("Precio minimo (Porcentaje del Precio Maximo):            ");
         this.tfNombre = new TextField();
         this.tfDescripcion = new TextField();
-        this.tfPrecioMax = new TextField();
-        this.tfPrecioMin = new TextField();
+        this.lbMillion=new Label ("Millones:  ");
+        this.lbHundreds=new Label ("Cientos de Miles:  ");
+        this.lbThousands=new Label ("Miles: ");
+        this.sPMmillions = new Spinner<>();
+        this.sPMhundreds = new Spinner<>();
+        this.sPMthousands = new Spinner<>();
+        this.sPrecioMin=new Spinner<>();
+        this.sPMhundreds.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,9,0));
+        this.sPMthousands.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,9,0));
+        this.sPMmillions.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,50,0));
+        this.sPrecioMin.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,50,0));
         this.guardar = new Button("Iniciar Subasta");
         
-        layout.getChildren().addAll(fila1,fila2,fila3,fila4,guardar);
         fila1.getChildren().addAll(lbNombre,tfNombre);
         fila2.getChildren().addAll(lbDescripcion,tfDescripcion);
-        fila3.getChildren().addAll(lbPrecioMax,tfPrecioMax);
-        fila4.getChildren().addAll(lbPrecioMin,tfPrecioMin);
+        fila3.getChildren().addAll(lbPrecioMax);
+        fila5.getChildren().addAll(lbHundreds,sPMhundreds);
+        fila6.getChildren().addAll(lbThousands,sPMthousands);
+        fila7.getChildren().addAll(lbMillion,sPMmillions);
+        fila4.getChildren().addAll(lbPrecioMin,sPrecioMin);
+        layout.getChildren().addAll(fila1,fila2,fila3,fila5,fila6,fila7,fila4,guardar);
         this.escena = new Scene(layout,ANCHO,ALTO);
     }
 
@@ -69,17 +97,31 @@ private Button guardar;
     public TextField getTfDescripcion() {
         return tfDescripcion;
     }
-    public TextField getTfPrecioMax() {
-        return tfPrecioMax;
+    public Spinner<Double> getsPMmillions() {
+        return sPMmillions;
     }
-    public TextField getTfPrecioMin() {
-        return tfPrecioMin;
+    public Spinner<Double> getsPMhundreds() {
+        return sPMhundreds;
+    }
+    public Spinner<Double> getsPMthousands() {
+        return sPMthousands;
+    }
+    public Spinner<Double> getsPrecioMin() {
+        return sPrecioMin;
+    }
+
+    public VBox getLayout() {
+        return layout;
     }
     
+    
+
+
 
     @Override
     public Scene getScene() {
       return escena;
         }
+ 
     
 }

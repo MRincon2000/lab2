@@ -29,7 +29,7 @@ private Proyecto proyecto;
     }
     public double getPrecio_actual() {
         Date fecha=new Date();
-    if(this.precio_actual>proyecto.getPrecioMin()){
+    if(this.precio_actual>((proyecto.getPrecioMin()/100)*(proyecto.getPrecioMax()))){
         long dif_Fechas=(fecha.getTime()-this.fecha_creación.getTime())/(1000*60*60);
         this.setPrecio_actual((precio_actual)-(precio_actual*(dif_Fechas)*0.05));
     }
