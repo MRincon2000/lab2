@@ -111,9 +111,9 @@ public class Controlador4 extends Controlador{
                 Logger.getLogger(Controlador4.class.getName()).log(Level.SEVERE, null, ex);
             }
         if(sigVista==0){
-        controlador=new Controlador5(modelo,usuarioS,contraseña);
-        }else{
-        controlador=new Controlador6(modelo);
+        controlador=new Controlador5(modelo,usuarioS);
+        }else if(sigVista==1){
+        controlador=new Controlador6(modelo,usuarioS);
         }
         }else{
             try {
@@ -121,6 +121,12 @@ public class Controlador4 extends Controlador{
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Controlador4.class.getName()).log(Level.SEVERE, null, ex);
             }
+             if(sigVista==2){
+           controlador= new Controlador7(modelo,usuarioS);
+        }
+        else if (sigVista==3){
+            controlador= new Controlador8(modelo,usuarioS);
+        }
 
         }
         Singleton singleton=Singleton.getSingleton();
@@ -146,14 +152,19 @@ public class Controlador4 extends Controlador{
         if(usuario==0){
         noExiste=modelo.loginPromotor(usuarioS, contraseña);
         if(sigVista==0){   
-        controlador=new Controlador5(modelo,usuarioS,contraseña);
+        controlador=new Controlador5(modelo,usuarioS);
         }else{
-        controlador=new Controlador6(modelo);
+        controlador=new Controlador6(modelo,usuarioS);
         }
         }else{
         noExiste=modelo.loginAportante(usuarioS,contraseña);
+        if(sigVista==2){   
+        controlador=new Controlador7(modelo,usuarioS);
+        }else{
+        controlador=new Controlador8(modelo,usuarioS);
         }
-            if(noExiste==true){
+        }
+        if(noExiste==true){
         vista.getPanel().getChildren().add(BnoExiste);
         }else{
         Singleton singleton=Singleton.getSingleton();

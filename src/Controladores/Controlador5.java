@@ -8,6 +8,9 @@ package Controladores;
 import static Controladores.Controlador.modelo;
 import Logica.Plataforma;
 import Vista.Vista5;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -23,10 +26,10 @@ public class Controlador5 extends Controlador{
     private Vista5 vista;
     private String usuario;
     private String contraseña;
-    public Controlador5(Plataforma modelo, String usuario,String contraseña) {
+    public Controlador5(Plataforma modelo, String usuario) {
         super(modelo);
         this.usuario=usuario;
-        this.contraseña=contraseña;
+
         this.vista=new Vista5();
         this.vista.getGuardar().setOnAction(new Evento());
     }
@@ -56,7 +59,11 @@ public class Controlador5 extends Controlador{
         @Override
         public void handle(ActionEvent event) {
         vista.getGuardar().setDisable(true);
-        modelo.solicitarPrestamo(usuario, vista.getTfNombre().getText(),vista.getTfDescripcion().getText(),(vista.getsPMhundreds().getValue()*100000)+(vista.getsPMmillions().getValue()*1000000)+(vista.getsPMthousands().getValue()*1000), vista.getsPrecioMin().getValue());
+            try {
+                modelo.solicitarPrestamo(usuario, vista.getTfNombre().getText(),vista.getTfDescripcion().getText(),(vista.getsPMhundreds().getValue()*100000)+(vista.getsPMmillions().getValue()*1000000)+(vista.getsPMthousands().getValue()*1000), vista.getsPrecioMin().getValue());
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Controlador5.class.getName()).log(Level.SEVERE, null, ex);
+            }
         vista.getLayout().getChildren().add(new Label("Subasta Exitosa"));
         vista.getLayout().getChildren().add(new Label("Recuerde que cada hora el precio del producto se reduce un 5% hasta su precio minimo"));
         vista.getLayout().getChildren().add(vista.getSalir());

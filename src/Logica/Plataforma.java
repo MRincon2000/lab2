@@ -23,6 +23,16 @@ public class Plataforma {
         this.aportantes = new ArrayList<>();
         this.subastas = new ArrayList<>();
     }
+
+    public ArrayList<Promotor> getPromotores() {
+        return promotores;
+    }
+    public ArrayList<Aportante> getAportantes() {
+        return aportantes;
+    }
+    public ArrayList<Subasta> getSubastas() {
+        return subastas;
+    }
     
     public void registrarPromotor(String usuario,String contraseña) throws FileNotFoundException{
         boolean yaExiste=false;
@@ -67,7 +77,7 @@ public class Plataforma {
           return false;
 }
     
-    public void solicitarPrestamo(String usuario,String nombre,String descripcion, double precioMax, double precioMin){
+    public void solicitarPrestamo(String usuario,String nombre,String descripcion, double precioMax, double precioMin) throws FileNotFoundException{
         Promotor solicitor=null;
         Proyecto proyecto=null;
         for(Promotor promotor:this.promotores){
@@ -75,25 +85,32 @@ public class Plataforma {
             solicitor=promotor;
         proyecto=new Proyecto(nombre,descripcion,precioMax,precioMin);
         proyecto.setUsuario(usuario);
-        promotor.getProyectos().add(proyecto);        
+        promotor.getProyectos().add(proyecto); 
+        
+        
+        
             }
-        this.subastas.add(new Subasta (solicitor, proyecto.getPrecioMax(), proyecto));
+        Subasta subasta=new Subasta (solicitor, proyecto.getPrecioMax(), proyecto);
+        this.subastas.add(subasta);
+        PrintStream salida = new PrintStream("Solicitudes.txt");
+        salida.println(usuario+" "+nombre+" "+subasta.getFecha_creación().getDay()+"/"+subasta.getFecha_creación().getMonth()+"/"+subasta.getFecha_creación().getYear());
         break;
         }
     }
-    public void tomarSubasta (String usuario, String contraseña,Date fecha){
-        Aportante comprador=null;
-        for(Aportante aportante: this.aportantes){
-            if(aportante.getUsuario()==usuario){
-            comprador=aportante;
-            break;
+    public void tomarSubasta (String usuario,Date fecha){
+        int s=0;
+        for(int i=0;i<this.aportantes.size();i++){
+            if(aportantes.get(i).getUsuario()==usuario){
+            s=i;
         }           
     } 
         for(Subasta subasta: this.subastas){
             if(subasta.getFecha_creación()==fecha){
-            comprador.getProyectos().add(subasta.getProyecto());
+
             subasta.getProyecto().setPrecioOfertado(subasta.getPrecio_actual());
-            subasta.getProyecto().setAportanteGanador(comprador);
+            subasta.getProyecto().setAportanteGanador(aportantes.get(s));
+            aportantes.get(s).getProyectos().add(subasta.getProyecto());
+
             this.subastas.remove(subasta);
             break;
             }

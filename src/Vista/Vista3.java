@@ -58,4 +58,21 @@ public class Vista3 implements Vista{
     public Scene getScene() {
         return escena;
     }
+
+    public Button getSubastas() {
+        return subastas;
+    }
+
+    public void setSubastas(Button subastas) {
+        this.subastas = subastas;
+    }
+
+    public Button getVerProyectos() {
+        return verProyectos;
+    }
+
+    public void setVerProyectos(Button verProyectos) {
+        this.verProyectos = verProyectos;
+    }
+    
 }
