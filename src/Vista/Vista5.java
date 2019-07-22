@@ -46,6 +46,8 @@ private Spinner <Double> sPMhundreds;
 private Spinner <Double> sPMthousands;
 private Spinner <Double> sPrecioMin;
 private Button guardar;
+private Button salir;
+
 
 
     public Vista5() {
@@ -75,7 +77,7 @@ private Button guardar;
         this.sPMmillions.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,50,0));
         this.sPrecioMin.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,50,0));
         this.guardar = new Button("Iniciar Subasta");
-        
+        this.salir=new Button("Salir");
         fila1.getChildren().addAll(lbNombre,tfNombre);
         fila2.getChildren().addAll(lbDescripcion,tfDescripcion);
         fila3.getChildren().addAll(lbPrecioMax);
@@ -112,6 +114,9 @@ private Button guardar;
 
     public VBox getLayout() {
         return layout;
+    }
+    public Button getSalir() {
+        return salir;
     }
     
     
