@@ -5,6 +5,8 @@
  */
 package Logica;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.*;
 
 /**
@@ -22,7 +24,7 @@ public class Plataforma {
         this.subastas = new ArrayList<>();
     }
     
-    public void registrarPromotor(String usuario,String contraseña){
+    public void registrarPromotor(String usuario,String contraseña) throws FileNotFoundException{
         boolean yaExiste=false;
         for(Promotor promotor:this.promotores){
             if(promotor.getUsuario()==usuario){
@@ -31,9 +33,11 @@ public class Plataforma {
         }
         if(yaExiste!=true){
             this.promotores.add(new Promotor(usuario,contraseña));
+            PrintStream salida= new PrintStream("Info_Aportantes_Promotores.txt");
+            salida.println("Promotor"+" "+ usuario+" "+contraseña);
         }
     }
-    public void registrarAportante(String usuario,String contraseña){
+    public void registrarAportante(String usuario,String contraseña) throws FileNotFoundException{
         boolean yaExiste=false;
         for(Aportante aportante: this.aportantes){
             if(aportante.getUsuario()==usuario){
@@ -42,6 +46,8 @@ public class Plataforma {
         }
         if(yaExiste!=true){
             this.aportantes.add(new Aportante(usuario,contraseña));
+            PrintStream salida= new PrintStream("Info_Aportantes_Promotores.txt");
+            salida.println("Aportante"+" "+ usuario+" "+contraseña);
         }
     }
     public boolean loginPromotor (String usuario,String contraseña){
@@ -68,6 +74,7 @@ public class Plataforma {
         if(promotor.getUsuario()==usuario){
             solicitor=promotor;
         proyecto=new Proyecto(nombre,descripcion,precioMax,precioMin);
+        proyecto.setUsuario(usuario);
         promotor.getProyectos().add(proyecto);        
             }
         this.subastas.add(new Subasta (solicitor, proyecto.getPrecioMax(), proyecto));

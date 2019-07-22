@@ -5,18 +5,25 @@
  */
 package Vista;
 
+import static Vista.Vista.ALTO;
+import static Vista.Vista.ANCHO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -47,10 +54,28 @@ private Spinner <Double> sPMthousands;
 private Spinner <Double> sPrecioMin;
 private Button guardar;
 private Button salir;
+private Image imagen;
 
 
 
     public Vista5() {
+        
+        AnchorPane panel= new AnchorPane();
+        Canvas canvas=new Canvas(ANCHO+50,ALTO+50);
+        GraphicsContext lapiz= canvas.getGraphicsContext2D();
+        panel.getChildren().add(canvas);
+       lapiz.setFill(Color.WHITE);
+        lapiz.fillRect(0, 0, ANCHO+50, ALTO+50);
+    
+        
+
+
+     this.imagen=new Image ("Imagenes/logo.jpg");
+     lapiz.drawImage(imagen,380,-20,210,210);
+        
+        
+        
+        
         this.layout=new VBox();
         this.fila1=new  HBox();
         this.fila2=new  HBox();
@@ -86,7 +111,11 @@ private Button salir;
         fila7.getChildren().addAll(lbMillion,sPMmillions);
         fila4.getChildren().addAll(lbPrecioMin,sPrecioMin);
         layout.getChildren().addAll(fila1,fila2,fila3,fila5,fila6,fila7,fila4,guardar);
-        this.escena = new Scene(layout,ANCHO,ALTO);
+       panel.setLeftAnchor(layout,20.00);
+       panel.setTopAnchor(layout,20.00);
+        panel.getChildren().add(layout);
+        
+        this.escena = new Scene(panel,ANCHO+50,ALTO+50);
     }
 
     public Button getGuardar() {

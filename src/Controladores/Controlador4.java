@@ -9,12 +9,16 @@ import static Controladores.Controlador.modelo;
 import Logica.Plataforma;
 import Vista.Vista2;
 import Vista.Vista4;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -65,14 +69,24 @@ public class Controlador4 extends Controlador{
 
         @Override
         public void handle(ActionEvent event) {
-        
+        AnchorPane panel= vista.getPanel();
+         vista.getLogin().setDisable(true);
+        vista.getRegister().setDisable(true);
         fila1.getChildren().add(lbUsuario);
         fila1.getChildren().add(tfUsuario);
         fila2.getChildren().add(lbContraseña);
         fila2.getChildren().add(tfContraseña);
-        vista.getLayout().getChildren().add(fila1);
-        vista.getLayout().getChildren().add(fila2);
-        vista.getLayout().getChildren().add(next);
+        
+        panel.setLeftAnchor(fila1,165.00);
+        panel.setTopAnchor(fila1,120.00);
+        panel.setLeftAnchor(fila2,145.00);
+        panel.setTopAnchor(fila2,160.00);
+        panel.setLeftAnchor(next,275.00);
+        panel.setTopAnchor(next,200.00);
+        
+        panel.getChildren().add(fila1);
+        panel.getChildren().add(fila2);
+        panel.getChildren().add(next);
         if(opcion==0){
         next.setOnAction(new Registro());
         }else{
@@ -88,18 +102,25 @@ public class Controlador4 extends Controlador{
         public void handle(ActionEvent event) {
         String usuarioS=tfUsuario.getText();
         String contraseña=tfContraseña.getText();
-        vista.getLogin().setDisable(true);
-        vista.getRegister().setDisable(true);
+       
         Controlador controlador=null;
         if(usuario==0){
-        modelo.registrarPromotor(usuarioS, contraseña);
+            try {
+                modelo.registrarPromotor(usuarioS, contraseña);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Controlador4.class.getName()).log(Level.SEVERE, null, ex);
+            }
         if(sigVista==0){
         controlador=new Controlador5(modelo,usuarioS,contraseña);
         }else{
         controlador=new Controlador6(modelo);
         }
         }else{
-        modelo.registrarAportante(usuarioS,contraseña);
+            try {
+                modelo.registrarAportante(usuarioS,contraseña);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Controlador4.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
         Singleton singleton=Singleton.getSingleton();
@@ -118,8 +139,7 @@ public class Controlador4 extends Controlador{
         public void handle(ActionEvent event) {
         String usuarioS=tfUsuario.getText();
         String contraseña=tfContraseña.getText();
-        vista.getLogin().setDisable(true);
-        vista.getRegister().setDisable(true);
+        
 
         Controlador controlador=null;
         boolean noExiste=false;
@@ -134,7 +154,7 @@ public class Controlador4 extends Controlador{
         noExiste=modelo.loginAportante(usuarioS,contraseña);
         }
             if(noExiste==true){
-        vista.getLayout().getChildren().add(BnoExiste);
+        vista.getPanel().getChildren().add(BnoExiste);
         }else{
         Singleton singleton=Singleton.getSingleton();
         Stage stage=singleton.getStage();
